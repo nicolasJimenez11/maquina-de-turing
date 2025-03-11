@@ -1,4 +1,5 @@
 import math
+import time
 
 # Convierte un número entero en su representación unaria
 def enteroUnario(n):#definicion de la funcion enteroUnario
@@ -39,7 +40,7 @@ def MaquinaT(cinta, transiciones, estado_inicial, estado_final, signo_blanco=" "
 # Definición de transiciones para operaciones básicas
 def Dtransiciones():
     return {
-                # SUMA: 111+11 → 11111
+        # SUMA: 111+11 → 11111
         ('q0', '1'): ('1', 'Derecha', 'q0'),# si el estado es q0 y el simbolo es 1, escribe 1, mueve a la derecha y permanece en q0
         ('q0', '+'): (' ', 'Derecha', 'q1'),# si el estado es q0 y el simbolo es +, escribe un espacio, mueve a la derecha y cambia a q1
         ('q1', '1'): ('1', 'Derecha', 'q1'),# si el estado es q1 y el simbolo es 1, escribe 1, mueve a la derecha y permanece en q1
@@ -59,17 +60,25 @@ def Dtransiciones():
         ('q0', '*'): (' ', 'Derecha', 'q7'),# si el estado es q0 y el simbolo es *, escribe un espacio, mueve a la derecha y cambia a q7
         ('q7', '1'): (' ', 'Derecha', 'q8'),# si el estado es q7 y el simbolo es 1, escribe un espacio, mueve a la derecha y cambia a q8
         ('q8', '1'): ('1', 'Derecha', 'q8'),# si el estado es q8 y el simbolo es 1, escribe 1, mueve a la derecha y permanece en q8
-        ('q8', ' '): ('1', 'Izquierda', 'q9'),# si el estado es q8 y el simbolo es un espacio, escribe 1, mueve a la izquierda y cambia a q9
+        ('q8', ' '): (' ', 'Izquierda', 'q9'),# si el estado es q8 y el simbolo es un espacio, escribe un espacio, mueve a la izquierda y cambia a q9
         ('q9', '1'): ('1', 'Izquierda', 'q9'),# si el estado es q9 y el simbolo es 1, escribe 1, mueve a la izquierda y permanece en q9
-        ('q9', ' '): (' ', 'Derecha', 'EstadoFinal'),# si el estado es q9 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a EstadoFinal
+        ('q9', ' '): (' ', 'Derecha', 'q10'),# si el estado es q9 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a q10
+        ('q10', '1'): ('1', 'Derecha', 'q10'),# si el estado es q10 y el simbolo es 1, escribe 1, mueve a la derecha y permanece en q10
+        ('q10', ' '): (' ', 'Izquierda', 'q11'),# si el estado es q10 y el simbolo es un espacio, escribe un espacio, mueve a la izquierda y cambia a q11
+        ('q11', '1'): ('1', 'Izquierda', 'q11'),# si el estado es q11 y el simbolo es 1, escribe 1, mueve a la izquierda y permanece en q11
+        ('q11', ' '): (' ', 'Derecha', 'q12'),# si el estado es q11 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a q12
+        ('q12', '1'): ('1', 'Derecha', 'q12'),# si el estado es q12 y el simbolo es 1, escribe 1, mueve a la derecha y permanece en q12
+        ('q12', ' '): (' ', 'Izquierda', 'q13'),# si el estado es q12 y el simbolo es un espacio, escribe un espacio, mueve a la izquierda y cambia a q13
+        ('q13', '1'): ('1', 'Izquierda', 'q13'),# si el estado es q13 y el simbolo es 1, escribe 1, mueve a la izquierda y permanece en q13
+        ('q13', ' '): (' ', 'Derecha', 'EstadoFinal'),# si el estado es q13 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a EstadoFinal
 
         # DIVISIÓN: 111/11 → 1
-        ('q0', '/'): (' ', 'Derecha', 'q10'),# si el estado es q0 y el simbolo es /, escribe un espacio, mueve a la derecha y cambia a q10
-        ('q10', '1'): (' ', 'Derecha', 'q11'),# si el estado es q10 y el simbolo es 1, escribe un espacio, mueve a la derecha y cambia a q11
-        ('q11', '1'): (' ', 'Derecha', 'q12'),# si el estado es q11 y el simbolo es 1, escribe un espacio, mueve a la derecha y cambia a q12
-        ('q12', ' '): ('1', 'Izquierda', 'q13'),# si el estado es q12 y el simbolo es un espacio, escribe 1, mueve a la izquierda y cambia a q13
-        ('q13', '1'): ('1', 'Izquierda', 'q13'),# si el estado es q13 y el simbolo es 1, escribe 1, mueve a la izquierda y permanece en q13
-        ('q13', ' '): (' ', 'Derecha', 'EstadoFinal')# si el estado es q13 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a EstadoFinal
+        ('q0', '/'): (' ', 'Derecha', 'q14'),# si el estado es q0 y el simbolo es /, escribe un espacio, mueve a la derecha y cambia a q14
+        ('q14', '1'): (' ', 'Derecha', 'q15'),# si el estado es q14 y el simbolo es 1, escribe un espacio, mueve a la derecha y cambia a q15
+        ('q15', '1'): (' ', 'Derecha', 'q16'),# si el estado es q15 y el simbolo es 1, escribe un espacio, mueve a la derecha y cambia a q16
+        ('q16', ' '): ('1', 'Izquierda', 'q17'),# si el estado es q16 y el simbolo es un espacio, escribe 1, mueve a la izquierda y cambia a q17
+        ('q17', '1'): ('1', 'Izquierda', 'q17'),# si el estado es q17 y el simbolo es 1, escribe 1, mueve a la izquierda y permanece en q17
+        ('q17', ' '): (' ', 'Derecha', 'EstadoFinal')# si el estado es q17 y el simbolo es un espacio, escribe un espacio, mueve a la derecha y cambia a EstadoFinal
     }
 
 transiciones = Dtransiciones()
@@ -78,6 +87,8 @@ operacion = input("Ingrese la operación que desea realizar (+, -, *, /, sqrt, l
 if operacion not in ['+', '-', '*', '/', 'sqrt', 'ln', '^', 'sin']:#not in sirve para comprobar si un valor no esta en la lista
     print("Operación no válida")
 else:
+    start_time = time.time()  # Inicia el temporizador
+
     if operacion == 'sqrt':#si la operacion es sqrt
         a = int(input("Ingrese el número: "))#
         resultado = 0
@@ -90,6 +101,7 @@ else:
         resultado_unario = enteroUnario(resultado)
         print("Estado final de la cinta:", resultado_unario)
         print("Resultado en número entero:", resultado)
+        print("Resultado calculado normalmente:", int(a ** 0.5))  # Resultado calculado normalmente
     elif operacion == 'ln':#si la operacion es ln
         x = float(input("Ingrese el número: "))
         if x <= 0:
@@ -105,6 +117,7 @@ else:
             print("Resultado en número real:", 2 * resultado)
             print("Resultado en unario:", resultado_unario)
             print("Número de transiciones realizadas:", iteraciones)
+            print("Resultado calculado normalmente:", math.log(x))  # Resultado calculado normalmente
     elif operacion == '^':#si la operacion es ^
         base = int(input("Ingrese la base: "))
         exponente = int(input("Ingrese el exponente: "))
@@ -113,6 +126,7 @@ else:
         print("Estado final de la cinta:", resultado_unario)
         print("Resultado en número entero:", resultado)
         print("Número de transiciones realizadas:", exponente)
+        print("Resultado calculado normalmente:", base ** exponente)  # Resultado calculado normalmente
     elif operacion == 'sin':
         x = float(input("Ingrese el ángulo en radianes: "))
         resultado = 0
@@ -127,6 +141,7 @@ else:
         print("Resultado en número real:", resultado)
         print("Resultado en unario:", resultado_unario)
         print("Número de transiciones realizadas:", iteraciones)
+        print("Resultado calculado normalmente:", math.sin(x))  # Resultado calculado normalmente
     else:#si no es ninguna de las anteriores
         a = int(input("Ingrese el primer número: "))
         b = int(input("Ingrese el segundo número: "))
@@ -135,3 +150,14 @@ else:
         print("Número de transiciones realizadas:", pasos)
         print("Estado final de la cinta:", resultado)
         print("Resultado en número entero:", unarioEntero(resultado))#se imprime el resultado en numero entero
+        if operacion == '+':
+            print("Resultado calculado normalmente:", a + b)  # Resultado calculado normalmente
+        elif operacion == '-':
+            print("Resultado calculado normalmente:", a - b)  # Resultado calculado normalmente
+        elif operacion == '*':
+            print("Resultado calculado normalmente:", a * b)  # Resultado calculado normalmente
+        elif operacion == '/':
+            print("Resultado calculado normalmente:", a // b)  # Resultado calculado normalmente (división entera)
+
+    end_time = time.time()  # Detiene el temporizador
+    print("Tiempo de ejecución: {:.6f} segundos".format(end_time - start_time))  # Imprime el tiempo de ejecución y manda 6 decimales que es {:.6f} y se usa format para dar formato a la salida
